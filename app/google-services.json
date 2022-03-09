@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "442574405321",
+    "project_id": "calculmobillab",
+    "storage_bucket": "calculmobillab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442574405321:android:ce8521ed2ccfbfc3d0d718",
+        "android_client_info": {
+          "package_name": "com.example.lab_calcul_mobil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442574405321-ptnu4ur1ocn843gsgum132af0pcal28d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDabZ8fsFQBxY38hsUsfzXMVFkZ30p0lFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442574405321-ptnu4ur1ocn843gsgum132af0pcal28d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442574405321:android:dbee6c5f0015ec17d0d718",
+        "android_client_info": {
+          "package_name": "com.example.simplenotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442574405321-ptnu4ur1ocn843gsgum132af0pcal28d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDabZ8fsFQBxY38hsUsfzXMVFkZ30p0lFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442574405321-ptnu4ur1ocn843gsgum132af0pcal28d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
