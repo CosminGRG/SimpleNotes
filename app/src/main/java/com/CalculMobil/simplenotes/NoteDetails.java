@@ -3,22 +3,19 @@ package com.CalculMobil.simplenotes;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.CalculMobil.simplenotes.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-
-import com.CalculMobil.simplenotes.databinding.ActivityNoteDetailsBinding;
 
 public class NoteDetails extends AppCompatActivity {
     Intent data;
@@ -34,9 +31,7 @@ public class NoteDetails extends AppCompatActivity {
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        //receive data from adapter
         data = getIntent();
-
 
         TextView content = findViewById(R.id.noteDetailsContent);
         TextView title = findViewById(R.id.noteDetailsTitle);
@@ -45,9 +40,16 @@ public class NoteDetails extends AppCompatActivity {
         content.setText(data.getStringExtra("content"));
         title.setText(data.getStringExtra("title"));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view ->  {
-            Snackbar.make(view,"Replace with your action",Snackbar.LENGTH_LONG).setAction("Action",null).show();
+        FloatingActionButton editNoteFab = findViewById(R.id.editNoteFab);
+        editNoteFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editNoteIntent = new Intent(view.getContext(), EditNote.class);
+                editNoteIntent.putExtra("title", data.getStringExtra("title"));
+                editNoteIntent.putExtra("content", data.getStringExtra("content"));
+                editNoteIntent.putExtra("noteId", data.getStringExtra("noteId"));
+                startActivity(editNoteIntent);
+            }
         });
     }
 

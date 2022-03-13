@@ -36,13 +36,14 @@
     <include layout="@layout/content_note_details" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/editNoteFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:contentDescription="Edit button"
+        android:tint="@color/white"
         app:backgroundTint="#C53F15"
         app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 

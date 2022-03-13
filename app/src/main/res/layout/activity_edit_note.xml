@@ -61,7 +61,7 @@
         app:srcCompat="@drawable/ic_save_black_24dp" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/editNoteProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

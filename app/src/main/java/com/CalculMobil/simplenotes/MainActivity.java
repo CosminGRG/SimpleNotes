@@ -68,13 +68,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position, @NonNull Note note) {
                 noteViewHolder.noteTitle.setText(note.getTitle());
                 noteViewHolder.noteContent.setText(note.getContent());
+
+                String docId = noteAdapter.getSnapshots().getSnapshot(position).getId();
+
                 noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     //passed the data to note details
                     public void onClick(View view) {
                         Intent i  = new Intent(view.getContext(), NoteDetails.class);
-                        i.putExtra("title",note.getTitle());
-                        i.putExtra("content",note.getContent());
+                        i.putExtra("title", note.getTitle());
+                        i.putExtra("content", note.getContent());
+                        i.putExtra("noteId", docId);
                         view.getContext().startActivity(i);
                     }
                 });
