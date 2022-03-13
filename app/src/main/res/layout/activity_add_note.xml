@@ -26,6 +26,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:minHeight="48dp"
                 android:text="@android:string/untitled"
                 android:textColor="#fff"
                 android:textColorHint="#FFFFFF"
