@@ -11,16 +11,22 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.CalculMobil.simplenotes.model.Adapter;
 import com.CalculMobil.simplenotes.R;
+import com.CalculMobil.simplenotes.model.Note;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView noteLists;
     Adapter adapter;
     FirebaseFirestore fStore;
+    FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Query query = fStore.collection("notes").orderBy("title", Query.Direction.DESCENDING);
 
-        //FirestoreRecycleOptions<>
+        FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class)
+                .build();
+
+        noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
+            @Override
+            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position, @NonNull Note note) {
+                noteViewHolder.noteTitle.setText(note.getTitle());
+                noteViewHolder.noteContent.setText(note.getContent());
+                noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    //passed the data to note details
+                    public void onClick(View view) {
+                        Intent i  = new Intent(view.getContext(), NoteDetails.class);
+                        i.putExtra("title",note.getTitle());
+                        i.putExtra("content",note.getContent());
+                        view.getContext().startActivity(i);
+                    }
+                });
+            }
+
+            @NonNull
+            @Override
+            public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_view_layout,parent,false);
+                return new NoteViewHolder(view);
+            }
+        };
 
         noteLists = findViewById(R.id.notelist);
 
@@ -65,23 +99,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
 
-        List<String> titles = new ArrayList<>();
-        List<String> content = new ArrayList<>();
-        titles.add("First note title");
-        content.add("First note content");
-
-        titles.add("Second note title");
-        content.add("Second note content");
-
-        titles.add("Third note title");
-        content.add("Third note content");
-
-        adapter = new Adapter(titles,content);
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        noteLists.setAdapter(adapter);
+        noteLists.setAdapter(noteAdapter);
 
         //open add note button
-
         FloatingActionButton fab = findViewById(R.id.addNoteFloat);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,4 +149,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public class NoteViewHolder extends RecyclerView.ViewHolder {
+        TextView noteTitle, noteContent;
+        View view;
+        public NoteViewHolder(@NonNull View itemView) {
+            super(itemView);
+            noteTitle = itemView.findViewById(R.id.titles);
+            noteContent = itemView.findViewById(R.id.content);
+            view = itemView;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        noteAdapter.startListening();
+    }
+
+    /*@Override
+    protected void onStop() {
+        super.onStop();
+        if (noteAdapter != null) {
+            noteAdapter.stopListening();
+        }
+    }*/
 }
