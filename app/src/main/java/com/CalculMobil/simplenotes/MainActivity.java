@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.CalculMobil.simplenotes.model.Adapter;
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("MainActivity", "Hello World");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         fStore = FirebaseFirestore.getInstance();
 

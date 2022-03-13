@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -28,6 +30,9 @@ public class NoteDetails extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         //receive data from adapter
         data = getIntent();
