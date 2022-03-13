@@ -1,4 +1,4 @@
-package com.example.simplenotes;
+package com.CalculMobil.simplenotes;
 
 import org.junit.Test;
 

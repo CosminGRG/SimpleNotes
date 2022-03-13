@@ -1,4 +1,4 @@
-package com.example.simplenotes.model;
+package com.CalculMobil.simplenotes.model;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.simplenotes.NoteDetails;
-import com.example.simplenotes.R;
+import com.CalculMobil.simplenotes.NoteDetails;
+import com.CalculMobil.simplenotes.R;
 
 import java.util.List;
 
@@ -36,16 +36,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.noteContent.setText(content.get(position));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
-<<<<<<< HEAD
             //passed the data to note details
             public void onClick(View view) {
                 Intent i  = new Intent(view.getContext(), NoteDetails.class);
                 i.putExtra("title",titles.get(position));
                 i.putExtra("content",content.get(position));
-=======
-            public void onClick(View view) {
-                Intent i  = new Intent(view.getContext(), NoteDetails.class);
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
                 view.getContext().startActivity(i);
             }
         });

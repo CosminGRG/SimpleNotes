@@ -1,4 +1,4 @@
-package com.example.simplenotes;
+package com.CalculMobil.simplenotes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.CalculMobil.simplenotes.R;
 
 public class Login extends AppCompatActivity {
     EditText lEmail,lPassword;

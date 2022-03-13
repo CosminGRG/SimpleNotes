@@ -4,12 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:background="#333131"
-    tools:context=".Register">
-=======
->
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
+    tools:context="com.CalculMobil.simplenotes.Register">
 
     <EditText
         android:id="@+id/userName"
@@ -21,12 +17,9 @@
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName"
-<<<<<<< HEAD
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold"
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,12 +34,9 @@
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
-<<<<<<< HEAD
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold"
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
@@ -61,13 +51,10 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-<<<<<<< HEAD
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textIsSelectable="false"
         android:textStyle="bold"
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userEmail" />
@@ -82,12 +69,9 @@
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
-<<<<<<< HEAD
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold"
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
@@ -112,12 +96,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Login Here"
-<<<<<<< HEAD
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold"
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createAccount" />

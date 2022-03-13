@@ -1,4 +1,4 @@
-package com.example.simplenotes;
+package com.CalculMobil.simplenotes;
 
 import android.content.Context;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.simplenotes">
+    package="com.CalculMobil.simplenotes">
 
     <application
         android:allowBackup="true"
@@ -10,22 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleNotes">
         <activity
-<<<<<<< HEAD
-            android:name=".AddNote"
+            android:name="com.CalculMobil.simplenotes.AddNote"
             android:exported="false"
             android:label="@string/title_activity_add_note"
             android:theme="@style/Theme.SimpleNotes.NoActionBar" />
-        <activity android:name="Register" />
-        <activity android:name="Login" />
+        <activity android:name="com.CalculMobil.simplenotes.Register" />
+        <activity android:name="com.CalculMobil.simplenotes.Login" />
         <activity
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
-            android:name=".NoteDetails"
+            android:name="com.CalculMobil.simplenotes.NoteDetails"
             android:exported="false"
             android:label="@string/title_activity_note_details"
             android:theme="@style/Theme.SimpleNotes.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.CalculMobil.simplenotes.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NoteDetails">
+    tools:context="com.CalculMobil.simplenotes.NoteDetails">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -16,7 +16,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-<<<<<<< HEAD
             android:background="#C53F15"
             app:popupTheme="@style/Theme.SimpleNotes.PopupOverlay">
 
@@ -31,10 +30,6 @@
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
-=======
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.SimpleNotes.PopupOverlay" />
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 
     </com.google.android.material.appbar.AppBarLayout>
 

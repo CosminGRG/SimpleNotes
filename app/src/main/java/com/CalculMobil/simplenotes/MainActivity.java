@@ -1,39 +1,28 @@
-package com.example.simplenotes;
+package com.CalculMobil.simplenotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-<<<<<<< HEAD
 import android.content.Intent;
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.simplenotes.model.Adapter;
+import com.CalculMobil.simplenotes.model.Adapter;
+import com.CalculMobil.simplenotes.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-=======
-import android.widget.Toast;
-
-import com.example.simplenotes.model.Adapter;
-import com.google.android.material.navigation.NavigationView;
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView nav_view;
     RecyclerView noteLists;
     Adapter adapter;
-<<<<<<< HEAD
     FirebaseFirestore fStore;
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +43,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
         fStore = FirebaseFirestore.getInstance();
 
         Query query = fStore.collection("notes").orderBy("title", Query.Direction.DESCENDING);
 
-        FirestoreRecycleOptions<>
+        //FirestoreRecycleOptions<>
 
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         noteLists = findViewById(R.id.notelist);
 
         drawerLayout = findViewById(R.id.drawer);
@@ -91,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new Adapter(titles,content);
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         noteLists.setAdapter(adapter);
-<<<<<<< HEAD
 
         //open add note button
 
@@ -103,14 +85,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-<<<<<<< HEAD
+            case R.id.notes:
+                Intent homeIntent = new Intent(this, MainActivity.class);
+                startActivity(homeIntent);
+                break;
             case R.id.addNote:
                 Intent intent = new Intent(this,AddNote.class);
                 startActivity(intent);
@@ -119,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent1 = new Intent(this,Login.class);
                 startActivity(intent1);
                 break;
-=======
->>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
             default:
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
         }
