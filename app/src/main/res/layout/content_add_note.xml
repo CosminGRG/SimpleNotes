@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+<<<<<<< HEAD
+    tools:context=".AddNote"
+=======
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
     tools:showIn="@layout/activity_add_note">
 
     <EditText
@@ -36,4 +40,8 @@
         app:layout_constraintEnd_toEndOf="@+id/addNoteContent"
         app:layout_constraintStart_toStartOf="@+id/addNoteContent"
         app:layout_constraintTop_toTopOf="@+id/addNoteContent" />
+<<<<<<< HEAD
 </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a

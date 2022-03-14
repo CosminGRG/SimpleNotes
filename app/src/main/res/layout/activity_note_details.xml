@@ -16,8 +16,25 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+<<<<<<< HEAD
+            android:background="#C53F15"
+            app:popupTheme="@style/Theme.SimpleNotes.PopupOverlay">
+
+
+            <TextView
+                android:id="@+id/noteDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+=======
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.SimpleNotes.PopupOverlay" />
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 
     </com.google.android.material.appbar.AppBarLayout>
 

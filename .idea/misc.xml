@@ -3,6 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
+        <entry key="..\:/calcul_mobil/app/src/main/res/drawable-v24/ic_add_black_24dp.xml" value="0.196" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/drawable-v24/ic_mode_edit_black_24dp.xml" value="0.152" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/drawable-v24/ic_more_vert_black_24dp.xml" value="0.152" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/drawable-v24/ic_save_black_24dp.xml" value="0.196" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_add_note.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_edit_note.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_login.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_note_details.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_register.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_spalsh.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/activity_splash.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/content_add_note.xml" value="0.18802083333333333" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/content_main.xml" value="0.264" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/content_note_details.xml" value="0.264" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/fragment_first.xml" value="0.14722222222222223" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/fragment_second.xml" value="0.14722222222222223" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/nav_header.xml" value="0.264" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/layout/note_view_layout.xml" value="0.264" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/menu/nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/calcul_mobil/app/src/main/res/menu/option_menu.xml" value="0.14722222222222223" />
+=======
         <entry key="..\:/SimpleNotes/calcul_mobil/app/src/main/res/layout/activity_add_note.xml" value="0.1" />
         <entry key="..\:/SimpleNotes/calcul_mobil/app/src/main/res/layout/activity_edit_note.xml" value="0.1" />
         <entry key="..\:/SimpleNotes/calcul_mobil/app/src/main/res/layout/activity_login.xml" value="0.152" />
@@ -14,6 +37,7 @@
         <entry key="..\:/SimpleNotes/calcul_mobil/app/src/main/res/layout/note_view_layout.xml" value="0.1" />
         <entry key="..\:/SimpleNotes/calcul_mobil/app/src/main/res/menu/nav_menu.xml" value="0.1" />
         <entry key="..\:/SimpleNotes/calcul_mobil/app/src/main/res/menu/option_menu.xml" value="0.1" />
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
       </map>
     </option>
   </component>

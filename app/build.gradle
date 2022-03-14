@@ -43,4 +43,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+<<<<<<< HEAD
+
+    implementation 'com.google.firebase:firebase-core:20.1.0'
+    implementation 'com.firebaseui.firebase-ui-firestore:4.1.0'
+=======
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 }

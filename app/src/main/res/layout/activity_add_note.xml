@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
+    tools:context=".AddNote">
+    >
+=======
 >
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

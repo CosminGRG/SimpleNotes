@@ -10,6 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleNotes">
         <activity
+<<<<<<< HEAD
+            android:name=".AddNote"
+            android:exported="false"
+            android:label="@string/title_activity_add_note"
+            android:theme="@style/Theme.SimpleNotes.NoActionBar" />
+        <activity android:name="Register" />
+        <activity android:name="Login" />
+        <activity
+=======
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
             android:name=".NoteDetails"
             android:exported="false"
             android:label="@string/title_activity_note_details"

@@ -36,8 +36,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.noteContent.setText(content.get(position));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
+<<<<<<< HEAD
+            //passed the data to note details
             public void onClick(View view) {
                 Intent i  = new Intent(view.getContext(), NoteDetails.class);
+                i.putExtra("title",titles.get(position));
+                i.putExtra("content",content.get(position));
+=======
+            public void onClick(View view) {
+                Intent i  = new Intent(view.getContext(), NoteDetails.class);
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
                 view.getContext().startActivity(i);
             }
         });

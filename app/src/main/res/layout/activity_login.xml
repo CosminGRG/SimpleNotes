@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+<<<<<<< HEAD
+    android:layout_height="match_parent"
+    android:background="#333131"
+    tools:context=".Login">
+=======
     android:layout_height="match_parent">
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
 
     <EditText
         android:id="@+id/email"
@@ -15,7 +21,13 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
+<<<<<<< HEAD
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+=======
         android:minHeight="48dp"
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +42,13 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+<<<<<<< HEAD
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+=======
         android:minHeight="48dp"
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -42,9 +60,15 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+<<<<<<< HEAD
+        android:background="#004D40"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+=======
         android:background="#FF5722"
         android:text="Login"
         android:textColor="#212121"
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lPassword" />
@@ -55,6 +79,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Forgot Password ?"
+<<<<<<< HEAD
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+=======
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +95,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Create New Account"
+<<<<<<< HEAD
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+=======
+>>>>>>> b913969d42213a4aada607d53164c0f6addb0f4a
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forgotPasword" />
