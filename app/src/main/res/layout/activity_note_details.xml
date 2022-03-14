@@ -44,6 +44,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="Edit button"
         android:tint="@color/white"
+        app:tint="@color/white"
         app:backgroundTint="#C53F15"
         app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
