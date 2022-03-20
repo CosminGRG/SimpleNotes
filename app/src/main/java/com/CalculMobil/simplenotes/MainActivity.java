@@ -154,6 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    public void onAvatarImageSelected(View view)
+    {
+        Intent loginIntent = new Intent(this, Login.class);
+        startActivity(loginIntent);
+    }
+
     public class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView noteTitle, noteContent;
         View view;
