@@ -174,15 +174,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.notes:
                 Intent homeIntent = new Intent(this, MainActivity.class);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(homeIntent);
                 break;
             case R.id.addNote:
-                Intent intent = new Intent(this,AddNote.class);
-                startActivity(intent);
+                Intent addNoteIntent = new Intent(this,AddNote.class);
+                startActivity(addNoteIntent);
                 break;
             case R.id.sync:
-                Intent intent1 = new Intent(this,Login.class);
-                startActivity(intent1);
+                Intent loginIntent = new Intent(this,Login.class);
+                startActivity(loginIntent);
                 break;
             default:
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
@@ -201,7 +202,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.settings)
         {
-            Toast.makeText(this, "Settings menu is clicked", Toast.LENGTH_SHORT).show();
+            Intent settingsIntent = new Intent(this,Settings.class);
+            startActivity(settingsIntent);
         }
         return super.onOptionsItemSelected(item);
     }
