@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +30,11 @@ import com.CalculMobil.simplenotes.R;
 import com.CalculMobil.simplenotes.model.Note;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -80,6 +86,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         i.putExtra("content", note.getContent());
                         i.putExtra("noteId", docId);
                         view.getContext().startActivity(i);
+                    }
+                });
+
+                //find ImageView for menu
+                ImageView menu_icon = noteViewHolder.view.findViewById(R.id.menuIcon);
+
+                menu_icon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        //get note id
+                        final String docId = noteAdapter.getSnapshots().getSnapshot(position).getId();
+
+                        PopupMenu menu = new PopupMenu(view.getContext(),view);
+                        menu.setGravity(Gravity.END);
+
+                        //elements off popup menu
+                        menu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                Intent editNoteIntent = new Intent(view.getContext(), EditNote.class);
+                                editNoteIntent.putExtra("title", note.getTitle());
+                                editNoteIntent.putExtra("content", note.getContent());
+                                editNoteIntent.putExtra("noteId",docId);
+                                startActivity(editNoteIntent);
+                                return false;
+                            }
+                        });
+                        menu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                DocumentReference docRef = fStore.collection("notes").document(docId);
+                                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                       Toast.makeText(MainActivity.this,"Error in deleting note",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                return false;
+                            }
+                        });
+                        menu.show();
                     }
                 });
             }
