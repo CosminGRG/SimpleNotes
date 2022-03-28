@@ -35,9 +35,6 @@ public class AddNote extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         fStore = FirebaseFirestore.getInstance();
 
         noteContent = findViewById(R.id.addNoteContent);

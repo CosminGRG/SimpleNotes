@@ -37,9 +37,6 @@ public class EditNote extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         fStore = fStore.getInstance();
 
         editNoteProgressBar = findViewById(R.id.editNoteProgressBar);

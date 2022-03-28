@@ -35,10 +35,6 @@ public class Login extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#C53F15")));
         getSupportActionBar().setTitle("Login");
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-
         lEmail = findViewById(R.id.email);
         lPassword = findViewById(R.id.lPassword);
         loginNow = findViewById(R.id.loginBtn);

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    app:theme="@style/Theme.SimpleNotes">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/noteCard"
@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#C53F15"
+        app:cardBackgroundColor="@color/accentColor"
         app:cardCornerRadius="0dp"
         app:cardElevation="5dp"
         app:contentPadding="0dp"
@@ -24,7 +24,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -41,7 +40,7 @@
                 android:padding="5dp"
                 android:text="TextView"
                 android:textAlignment="viewStart"
-                android:textColor="#000"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toTopOf="@+id/cardView"
@@ -54,6 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                app:cardBackgroundColor="@color/cardAccentColor"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="5dp"
                 app:contentPadding="5dp"
@@ -75,7 +75,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_more_vert_black_24dp"
-                        app:tint="@color/white" />
+                        app:tint="@color/textColor" />
 
                     <TextView
                         android:id="@+id/titles"
@@ -84,7 +84,7 @@
                         android:padding="2dp"
                         android:text="TextView"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white"
+                        android:textColor="@color/textColor"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"

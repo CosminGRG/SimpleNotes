@@ -9,25 +9,24 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C53F15"
-        android:theme="@style/Theme.SimpleNotes.AppBarOverlay">
+        android:background="@color/accentColor">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#C53F15"
-            app:popupTheme="@style/Theme.SimpleNotes.PopupOverlay">
-
+            android:background="@color/accentColor"
+            android:theme="@style/Theme.SimpleNotes">
 
             <TextView
                 android:id="@+id/noteDetailsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -45,7 +44,7 @@
         android:contentDescription="Edit button"
         android:tint="@color/white"
         app:tint="@color/white"
-        app:backgroundTint="#C53F15"
+        app:backgroundTint="@color/accentColor"
         app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

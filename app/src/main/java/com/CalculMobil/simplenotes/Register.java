@@ -35,9 +35,6 @@ public class Register extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#C53F15")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         rUserName = findViewById(R.id.userName);
         rUserEmail = findViewById(R.id.userEmail);
         rUserPass = findViewById(R.id.password);

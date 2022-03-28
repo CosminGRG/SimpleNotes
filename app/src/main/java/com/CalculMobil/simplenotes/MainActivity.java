@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         fStore = FirebaseFirestore.getInstance();
 
         Query query = fStore.collection("notes").orderBy("title", Query.Direction.DESCENDING);

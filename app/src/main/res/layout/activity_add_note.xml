@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryColor"
     tools:context="com.CalculMobil.simplenotes.AddNote">
-    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.SimpleNotes.AppBarOverlay">
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#C53F15"
-            app:popupTheme="@style/Theme.SimpleNotes.PopupOverlay">
+            android:background="@color/accentColor"
+            >
 
             <EditText
                 android:id="@+id/addNoteTitle"
@@ -28,8 +28,8 @@
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:text="@android:string/untitled"
-                android:textColor="#fff"
-                android:textColorHint="#FFFFFF"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -45,9 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:tint="@color/white"
+        android:contentDescription="Save note"
         app:backgroundTint="#C53F15"
         app:maxImageSize="30dp"
-        app:srcCompat="@drawable/ic_save_black_24dp" />
+        app:srcCompat="@drawable/ic_save_black_24dp"
+        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

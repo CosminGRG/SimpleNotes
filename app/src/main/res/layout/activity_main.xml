@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.CalculMobil.simplenotes.MainActivity"
-    android:id="@+id/drawer">
+    android:id="@+id/drawer"
+    app:theme="@style/Theme.SimpleNotes">
 
    <include
        android:layout_height="match_parent"
