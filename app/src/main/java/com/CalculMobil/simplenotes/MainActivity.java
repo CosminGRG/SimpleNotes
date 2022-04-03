@@ -2,12 +2,14 @@ package com.CalculMobil.simplenotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +36,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Adapter adapter;
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
+    FirebaseUser user;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +65,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         fStore = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
 
-        Query query = fStore.collection("notes").orderBy("title", Query.Direction.DESCENDING);
+        Query query = fStore.collection("notes").document(user.getUid()).collection("myNotes").orderBy("title", Query.Direction.DESCENDING);
+
+
 
         FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
@@ -179,13 +189,83 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(addNoteIntent);
                 break;
             case R.id.sync:
-                Intent loginIntent = new Intent(this,Login.class);
-                startActivity(loginIntent);
+                if(user.isAnonymous())
+                {
+                    Intent loginIntent = new Intent(this,Login.class);
+                    startActivity(loginIntent);
+                }
+                else    
+                {
+                    Toast.makeText(this, "You Are connected.", Toast.LENGTH_SHORT).show();
+                }
                 break;
+
+            case R.id.logout:
+                checkUser();
+                break;
+
             default:
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+    private void checkUser() {
+
+        //if user is real or not
+        if(user.isAnonymous())
+        {
+            displayAlert();
+        }
+        else
+        {
+            FirebaseAuth.getInstance().signOut();
+            Intent splashIntent = new Intent(getApplicationContext(),Splash.class);
+            splashIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(splashIntent);
+            finish();
+        }
+
+    }
+
+    private void displayAlert() {
+            //alert dialog with 2 buttons
+        AlertDialog.Builder warning = new AlertDialog.Builder(this).setTitle("Are you sure?")
+                .setMessage("You are logged in with TemporaryAccount.Logging out will delete all notes. ")
+                .setPositiveButton("Sync Note", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent registerIntent = new Intent(getApplicationContext(),Register.class);
+                        registerIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(registerIntent);
+                        finish();
+                    }
+                }).setNegativeButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //delete all the notes created by the Anon user
+
+
+                        //delete the anon user
+
+                        user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Intent splashIntent = new Intent(getApplicationContext(),Splash.class);
+                                splashIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(splashIntent);
+                                finish();
+
+                            }
+                        });
+
+
+                    }
+                });
+
+        warning.show();
+
+
     }
 
     @Override

@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,7 +30,8 @@ public class EditNote extends AppCompatActivity {
     EditText editNoteTitle, editNoteContent;
     FirebaseFirestore fStore;
     ProgressBar editNoteProgressBar;
-
+    FirebaseUser user;
+    FirebaseAuth fAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,8 @@ public class EditNote extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         fStore = fStore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
 
         editNoteProgressBar = findViewById(R.id.editNoteProgressBar);
 
@@ -66,7 +71,7 @@ public class EditNote extends AppCompatActivity {
             editNoteProgressBar.setVisibility(View.VISIBLE);
 
             /* Update note */
-            DocumentReference docref = fStore.collection("notes").document(data.getStringExtra("noteId"));
+            DocumentReference docref = fStore.collection("notes").document(user.getUid()).collection("myNotes").document(data.getStringExtra("noteId"));
 
             Map<String,Object> note = new HashMap<>();
             note.put("title",nTitle);
