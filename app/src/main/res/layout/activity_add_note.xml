@@ -27,9 +27,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="@android:string/untitled"
+                android:hint="Title"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 

@@ -5,12 +5,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -70,7 +80,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Query query = fStore.collection("notes").document(user.getUid()).collection("myNotes").orderBy("title", Query.Direction.DESCENDING);
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel = new NotificationChannel("notif", "notif", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
@@ -78,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
             @Override
-            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position, @NonNull Note note) {
+            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, @SuppressLint("RecyclerView") int position, @NonNull Note note) {
                 noteViewHolder.noteTitle.setText(note.getTitle());
                 noteViewHolder.noteContent.setText(note.getContent());
 
@@ -138,6 +153,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 return false;
                             }
                         });
+                        menu.getMenu().add("Notify").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                NotificationTask runner = new NotificationTask();
+                                String sleepingTime = "5";
+                                runner.execute(sleepingTime);
+                                return false;
+                            }
+                        });
                         menu.show();
                     }
                 });
@@ -174,6 +198,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+    }
+
+    private class NotificationTask extends AsyncTask<String, String, String> {
+
+        private String resp;
+        private int NOTIFICATION_ID = 1;
+
+        @Override
+        protected String doInBackground(String... params) {
+            //publishProgress("Sleeping..."); // Calls onProgressUpdate()
+            try {
+                int time = Integer.parseInt(params[0])*1000;
+
+                Thread.sleep(time);
+                resp = "Slept for " + params[0] + " seconds";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            } catch (Exception e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            }
+            return resp;
+        }
+
+        private void createNotification(String contentTitle, String contentText) {
+            Log.d("createNotification", "title is [" + contentTitle +"]");
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "notif");
+            builder.setSmallIcon(R.drawable.ic_baseline_add_box_24)
+                    .setContentTitle(contentTitle)
+                    .setContentText(contentText)
+                    .setAutoCancel(true)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
+
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            createNotification("New notification", "Hello World!");
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+        }
     }
 
     @Override
