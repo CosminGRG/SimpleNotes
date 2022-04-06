@@ -25,6 +25,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class Register extends AppCompatActivity {
     EditText rUserName,rUserEmail,rUserPass,rUserConfPass;
@@ -87,12 +89,22 @@ public class Register extends AppCompatActivity {
                         public void onSuccess(AuthResult authResult) {
                             Toast.makeText(Register.this, "Notes are synced", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+
+                            //save user credential
+                            FirebaseUser usr = fAuth.getCurrentUser();
+                            UserProfileChangeRequest request =new UserProfileChangeRequest.Builder().setDisplayName(uUsername)
+                                    .build();
+                            usr.updateProfile(request);
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(Register.this, "Failed to Connect.Try Again", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.VISIBLE);
+
 
                         }
                     });

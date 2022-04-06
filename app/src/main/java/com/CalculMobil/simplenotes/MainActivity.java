@@ -52,6 +52,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,6 +190,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         noteLists.setAdapter(noteAdapter);
+
+
+        //find username in header for display
+        View headerView = nav_view.getHeaderView(0);
+        TextView username = headerView.findViewById(R.id.userDisplayName);
+        if(user.isAnonymous())
+        {
+            username.setText("Temporary User Account");
+        }
+        else
+        {
+            username.setText(user.getDisplayName());
+        }
 
         //open add note button
         FloatingActionButton fab = findViewById(R.id.addNoteFloat);
