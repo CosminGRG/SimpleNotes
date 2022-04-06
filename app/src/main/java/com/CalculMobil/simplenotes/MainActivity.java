@@ -52,8 +52,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -201,7 +199,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else
         {
-            username.setText(user.getDisplayName());
+            String test = user.getDisplayName();
+            username.setText(test);
         }
 
         //open add note button

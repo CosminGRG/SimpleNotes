@@ -97,7 +97,7 @@ public class Register extends AppCompatActivity {
                                     .build();
                             usr.updateProfile(request);
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
+                            finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
