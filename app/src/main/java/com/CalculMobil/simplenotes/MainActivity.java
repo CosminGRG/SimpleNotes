@@ -1,24 +1,16 @@
 package com.CalculMobil.simplenotes;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,15 +22,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.CalculMobil.simplenotes.model.Adapter;
-import com.CalculMobil.simplenotes.R;
 import com.CalculMobil.simplenotes.model.Note;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -52,8 +54,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
+import java.time.temporal.ChronoField;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
+
+        View dialogView = View.inflate(MainActivity.this, R.layout.date_time_picker, null);
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+
 
         Query query = fStore.collection("notes").document(user.getUid()).collection("myNotes").orderBy("title", Query.Direction.DESCENDING);
 
@@ -153,12 +159,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 return false;
                             }
                         });
-                        menu.getMenu().add("Notify").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        menu.getMenu().add("Schedule Notification").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
-                                NotificationTask runner = new NotificationTask();
-                                String sleepingTime = "5";
-                                runner.execute(sleepingTime);
+                                alertDialog.show();
                                 return false;
                             }
                         });
@@ -189,6 +193,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         noteLists.setAdapter(noteAdapter);
 
+        alertDialog.setView(dialogView);
+
 
         //find username in header for display
         View headerView = nav_view.getHeaderView(0);
@@ -212,20 +218,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
+        dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+                TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
+
+                Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+                        datePicker.getMonth(),
+                        datePicker.getDayOfMonth(),
+                        timePicker.getCurrentHour(),
+                        timePicker.getCurrentMinute());
+
+                long time = calendar.getTimeInMillis();
+                alertDialog.dismiss();
+
+                scheduleNotification(getApplicationContext(), time, "Test", "Test");
+                //NotificationTask runner = new NotificationTask();
+                //String sleepingTime = time;
+                //runner.execute(time);
+            }});
     }
 
-    private class NotificationTask extends AsyncTask<String, String, String> {
+
+
+    private class NotificationTask extends AsyncTask<Long, String, String> {
 
         private String resp;
         private int NOTIFICATION_ID = 1;
 
         @Override
-        protected String doInBackground(String... params) {
-            //publishProgress("Sleeping..."); // Calls onProgressUpdate()
+        protected String doInBackground(Long... params) {
             try {
-                int time = Integer.parseInt(params[0])*1000;
-
-                Thread.sleep(time);
+                long time = params[0];
+                long currentMillis = System.currentTimeMillis();
+                long sleepTime = time - currentMillis;
+                Thread.sleep(sleepTime);
                 resp = "Slept for " + params[0] + " seconds";
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -249,7 +279,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
 
             notificationManager.notify(NOTIFICATION_ID, builder.build());
-
         }
 
         @Override
@@ -264,6 +293,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected void onProgressUpdate(String... text) {
         }
+    }
+
+    public static void scheduleNotification(Context context, long time, String title, String text) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("title", title);
+        intent.putExtra("text", text);
+        PendingIntent pending = PendingIntent.getBroadcast(context, 42, intent, PendingIntent.FLAG_IMMUTABLE);
+        // Schdedule notification
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending);
     }
 
     @Override
