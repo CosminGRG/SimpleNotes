@@ -62,11 +62,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView nav_view;
     RecyclerView noteLists;
-    Adapter adapter;
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note, NoteViewHolder> noteAdapter;
     FirebaseUser user;
     FirebaseAuth fAuth;
+    int currentPosition;
+    String currentNoteTitle;
+    String currentNoteContent;
+    String currentNoteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View dialogView = View.inflate(MainActivity.this, R.layout.date_time_picker, null);
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-
 
         Query query = fStore.collection("notes").document(user.getUid()).collection("myNotes").orderBy("title", Query.Direction.DESCENDING);
 
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    //passed the data to note details
+                    //pass the data to note details
                     public void onClick(View view) {
                         Intent i  = new Intent(view.getContext(), NoteDetails.class);
                         i.putExtra("title", note.getTitle());
@@ -125,6 +127,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(final View view) {
                         //get note id
                         final String docId = noteAdapter.getSnapshots().getSnapshot(position).getId();
+                        currentPosition = position;
+                        currentNoteTitle = note.getTitle();
+                        currentNoteContent = note.getContent();
+                        currentNoteId = docId;
 
                         PopupMenu menu = new PopupMenu(view.getContext(),view);
                         menu.setGravity(Gravity.END);
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 return false;
                             }
                         });
-                        menu.getMenu().add("Schedule Notification").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        menu.getMenu().add("Set Reminder").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 alertDialog.show();
@@ -195,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         alertDialog.setView(dialogView);
 
-
         //find username in header for display
         View headerView = nav_view.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.userDisplayName);
@@ -205,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else
         {
-            String test = user.getDisplayName();
-            username.setText(test);
+            String actualUsername = user.getDisplayName();
+            username.setText(actualUsername);
         }
 
         //open add note button
@@ -222,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Note selectedNote = noteAdapter.getItem(currentPosition);
 
                 DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
                 TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
@@ -235,14 +241,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 long time = calendar.getTimeInMillis();
                 alertDialog.dismiss();
 
-                scheduleNotification(getApplicationContext(), time, "Test", "Test");
+                scheduleNotification(getApplicationContext(), time, "Note reminder", "Reminder for note "+selectedNote.getTitle(),
+                        currentPosition, currentNoteId, currentNoteTitle, currentNoteContent);
                 //NotificationTask runner = new NotificationTask();
                 //String sleepingTime = time;
                 //runner.execute(time);
             }});
     }
 
-
+    public static void scheduleNotification(Context context, long time, String title, String text,
+                                            int notificationId, String noteId, String noteTitle, String noteContent)
+    {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("title", title);
+        intent.putExtra("text", text);
+        intent.putExtra("notificationId", notificationId);
+        intent.putExtra("noteId", noteId);
+        intent.putExtra("noteTitle", noteTitle);
+        intent.putExtra("noteContent", noteContent);
+        PendingIntent pending = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        // Schdedule notification
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending);
+    }
 
     private class NotificationTask extends AsyncTask<Long, String, String> {
 
@@ -267,6 +288,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return resp;
         }
 
+        //To delete
         private void createNotification(String contentTitle, String contentText) {
             Log.d("createNotification", "title is [" + contentTitle +"]");
             NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "notif");
@@ -293,16 +315,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected void onProgressUpdate(String... text) {
         }
-    }
-
-    public static void scheduleNotification(Context context, long time, String title, String text) {
-        Intent intent = new Intent(context, NotificationReceiver.class);
-        intent.putExtra("title", title);
-        intent.putExtra("text", text);
-        PendingIntent pending = PendingIntent.getBroadcast(context, 42, intent, PendingIntent.FLAG_IMMUTABLE);
-        // Schdedule notification
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending);
     }
 
     @Override

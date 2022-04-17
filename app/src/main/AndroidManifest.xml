@@ -19,11 +19,7 @@
             android:theme="@style/Theme.SimpleNotes.NoActionBar"
             android:exported="true"
             android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.CalculMobil.simplenotes.AddNote"
@@ -40,7 +36,8 @@
         <activity
             android:name="com.CalculMobil.simplenotes.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Design.NoActionBar">
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
