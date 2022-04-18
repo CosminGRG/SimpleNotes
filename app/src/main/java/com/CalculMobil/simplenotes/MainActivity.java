@@ -241,11 +241,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 long time = calendar.getTimeInMillis();
                 alertDialog.dismiss();
 
+                Toast.makeText(getApplicationContext(), "Reminder set", Toast.LENGTH_SHORT).show();
+
                 scheduleNotification(getApplicationContext(), time, "Note reminder", "Reminder for note "+selectedNote.getTitle(),
                         currentPosition, currentNoteId, currentNoteTitle, currentNoteContent);
-                //NotificationTask runner = new NotificationTask();
-                //String sleepingTime = time;
-                //runner.execute(time);
             }});
     }
 
@@ -269,7 +268,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         private String resp;
         private int NOTIFICATION_ID = 1;
-
+        //NotificationTask runner = new NotificationTask();
+        //String sleepingTime = time;
+        //runner.execute(time);
         @Override
         protected String doInBackground(Long... params) {
             try {
