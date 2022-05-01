@@ -9,6 +9,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
 import android.os.AsyncTask;
@@ -33,6 +38,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -54,6 +60,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.w3c.dom.Text;
+
 import java.time.Instant;
 import java.time.temporal.ChronoField;
 
@@ -71,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String currentNoteContent;
     String currentNoteId;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +92,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
+
+        sharedPreferences = getSharedPreferences("night", 0);
+
+        Boolean booleanValue = sharedPreferences.getBoolean("night_mode", true);
+        if (booleanValue)
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
 
         View dialogView = View.inflate(MainActivity.this, R.layout.date_time_picker, null);
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
